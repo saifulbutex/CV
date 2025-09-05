@@ -1,57 +1,270 @@
-:root{
-  --bg: #facc15;
-  --card: #000;
-  --text: #fff;
-  --muted: #e0e0e0;
-  --accent: #ffdd00;
-  --border: #222;
-  --shadow: 0 10px 30px rgba(0,0,0,0.3);
+/*
+ * ----------------------------------------------------
+ * 1. THEME VARIABLES
+ * ----------------------------------------------------
+ * These variables control the dark and light mode colors.
+ * You can easily change the entire look of the site here.
+ */
+:root {
+  /* Dark Mode Palette */
+  --bg: #1e1e1e;
+  --card: #2c2c2c;
+  --text: #f0f0f0;
+  --muted: #a0a0a0;
+  --accent: #6d6dff;
+  --border: #444;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="light"]{
-  --bg: #fffacd;
-  --card: #fff;
-  --text: #000;
-  --muted: #555;
-  --accent: #facc15;
-  --border: #ddd;
-  --shadow: 0 8px 24px rgba(0,0,0,0.08);
+[data-theme="light"] {
+  /* Light Mode Palette */
+  --bg: #f8f9fa;
+  --card: #ffffff;
+  --text: #333;
+  --muted: #777;
+  --accent: #6d6dff;
+  --border: #e0e0e0;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:ui-sans-serif, system-ui, sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
-a{color:var(--accent);text-decoration:none;}
-a:hover{text-decoration:underline;}
-.container{max-width:1050px;margin:0 auto;padding:12px 24px;}
-header{position:sticky;top:0;background:rgba(0,0,0,0.1);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:10;}
-.header-container{display:flex;justify-content:space-between;align-items:center;}
-.theme-btn{font-size:24px;background:none;border:none;cursor:pointer;}
+/*
+ * ----------------------------------------------------
+ * 2. GLOBAL & TYPOGRAPHY STYLES
+ * ----------------------------------------------------
+ * Resetting defaults and establishing a clean typographic
+ * hierarchy for consistency.
+ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:32px 24px;align-items:center;}
-.hero-tags{margin-bottom:12px;}
-.tag{display:inline-block;font-size:12px;color:var(--muted);border:1px solid var(--border);padding:4px 10px;border-radius:999px;margin-right:8px;opacity:0;transform:translateX(-20px);}
-.tag.slide-in{animation:slideIn 0.6s forwards;animation-delay:var(--delay);}
-@keyframes slideIn{to{opacity:1;transform:translateX(0);}}
-.avatar{width:180px;height:180px;border-radius:20px;border:1px solid var(--border);object-fit:cover;transition:transform .3s ease;}
-.avatar:hover{transform:scale(1.05);}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
 
-.content-wrapper{display:flex;gap:24px;padding:24px;}
-.sidebar{flex:0 0 220px;position:sticky;top:100px;background:rgba(0,0,0,0.05);padding:12px;border-radius:12px;}
-.sidebar ul{list-style:none;}
-.sidebar li{padding:10px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;transition:0.3s;}
-.sidebar li:hover, .sidebar li.active{background:var(--accent);color:#000;}
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
-.section-content{flex:1;background:var(--card);border-radius:18px;padding:22px;box-shadow:var(--shadow);}
-.section-content h2{margin-bottom:12px;}
-.section-content p, .section-content ul{margin-bottom:10px;}
-.section-content ul{padding-left:18px;}
+a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
 
-footer{border-top:1px solid var(--border);padding:16px;text-align:center;color:var(--muted);}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+}
 
-@media(max-width:860px){
-  .hero{grid-template-columns:1fr;}
-  .content-wrapper{flex-direction:column;}
-  .sidebar{position:relative;top:auto;width:100%;display:flex;overflow-x:auto;}
-  .sidebar ul{display:flex;gap:10px;}
-  .sidebar li{flex:0 0 auto;}
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+/*
+ * ----------------------------------------------------
+ * 3. COMPONENT STYLES
+ * ----------------------------------------------------
+ * Styles for specific sections and elements of the page.
+ */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(44, 44, 44, 0.2);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.theme-btn {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+.theme-btn:hover {
+  color: var(--accent);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  padding: 4rem 2rem;
+  align-items: center;
+}
+
+.hero-tags {
+  margin-bottom: 12px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-right: 8px;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.tag.slide-in {
+  animation: slideIn 0.6s forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+  border-color: #6d6dff;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 2rem;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+  position: sticky;
+  top: 6rem;
+  background: var(--card);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sidebar li:hover, .sidebar li.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+}
+
+.section-content {
+  flex: 1;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.section-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.section-content p, .section-content ul {
+  margin-bottom: 1rem;
+}
+
+.section-content ul {
+  padding-left: 1.5rem;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+/*
+ * ----------------------------------------------------
+ * 4. MEDIA QUERIES
+ * ----------------------------------------------------
+ * Adjusting the layout for smaller screens to ensure
+ * a responsive and mobile-friendly design.
+ */
+@media(max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+  }
+  .hero-text {
+    text-align: center;
+  }
+  .avatar {
+    margin: 0 auto;
+  }
+  .content-wrapper {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  .sidebar {
+    position: relative;
+    top: auto;
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  .sidebar ul {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+  .sidebar li {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
 }
