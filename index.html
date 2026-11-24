@@ -4,57 +4,428 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Saiful Islam — Lecturer In Textile</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /*
+     * ----------------------------------------------------
+     * 1. THEME VARIABLES
+     * ----------------------------------------------------
+     */
+    :root {
+      /* Dark Mode Palette */
+      --bg: #1e1e1e;
+      --card: #2c2c2c;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+      --accent: #6d6dff;
+      --border: #444;
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    [data-theme="light"] {
+      /* Light Mode Palette */
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --text: #333;
+      --muted: #777;
+      --accent: #6d6dff;
+      --border: #e0e0e0;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /*
+     * ----------------------------------------------------
+     * 2. GLOBAL & TYPOGRAPHY STYLES
+     * ----------------------------------------------------
+     */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    /*
+     * ----------------------------------------------------
+     * 3. COMPONENT STYLES
+     * ----------------------------------------------------
+     */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(44, 44, 44, 0.2);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .theme-btn {
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+
+    .theme-btn:hover {
+      color: var(--accent);
+    }
+
+    .top-jump-bar {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .top-jump-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .top-jump-list a {
+      display: inline-block;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .top-jump-list a:hover,
+    .top-jump-list a.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      padding: 3rem 2rem 2rem 2rem;
+      align-items: center;
+    }
+
+    .hero-tags {
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-right: 8px;
+      margin-bottom: 6px;
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .tag.slide-in {
+      animation: slideIn 0.6s forwards;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      object-fit: cover;
+      transition: transform 0.4s ease, border-color 0.4s ease;
+      display: block;
+    }
+
+    .avatar:hover {
+      transform: scale(1.1);
+      border-color: #6d6dff;
+    }
+
+    .vertical-stack {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .section-content {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      scroll-margin-top: 6.5rem;
+    }
+
+    .section-content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-content p,
+    .section-content ul {
+      margin-bottom: 1rem;
+    }
+
+    .section-content p:last-child,
+    .section-content ul:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-content ul {
+      padding-left: 1.5rem;
+    }
+
+    .section-content li {
+      margin-bottom: 0.45rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /*
+     * ----------------------------------------------------
+     * 4. MEDIA QUERIES
+     * ----------------------------------------------------
+     */
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem 1.25rem 1rem;
+      }
+
+      .hero-left {
+        text-align: center;
+      }
+
+      .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .avatar {
+        margin: 0 auto;
+      }
+
+      .top-jump-bar {
+        padding: 0 1.25rem;
+      }
+
+      .top-jump-list {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        border-radius: 12px;
+      }
+
+      .top-jump-list a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .vertical-stack {
+        padding: 1.25rem 1.25rem 2.5rem 1.25rem;
+      }
+
+      .section-content {
+        padding: 1.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="container header-container">
-      <div class="logo"><h2>Be Honest      Be Kind      Be Humble</h2></div>
-      <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+      <div class="logo"><h2>Be Honest &nbsp;&nbsp;&nbsp; Be Kind &nbsp;&nbsp;&nbsp; Be Humble</h2></div>
+      <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">☀️</button>
     </div>
   </header>
 
-  <main class="main-container">
-    <section class="hero">
+  <main>
+    <section class="container hero">
       <div class="hero-left">
         <div class="hero-tags">
           <span class="tag" style="--delay:0s">Lecturer</span>
           <span class="tag" style="--delay:0.1s">Textile Engineering</span>
-          <a href="https://www.adust.edu.bd/" target="_blank"><span class="tag" style="--delay:0.2s">ADUST</span></a>
-          <a href="https://www.butex.edu.bd/" target="_blank"><span class="tag" style="--delay:0.3s">BUTEX</span></a>
+          <a href="https://www.adust.edu.bd/" target="_blank" rel="noopener noreferrer"><span class="tag" style="--delay:0.2s">ADUST</span></a>
+          <a href="https://www.butex.edu.bd/" target="_blank" rel="noopener noreferrer"><span class="tag" style="--delay:0.3s">BUTEX</span></a>
           <span class="tag" style="--delay:0.4s">Bangladesh</span>
         </div>
         <h2>Saiful Islam</h2>
-        <p>Lecturer and beginner level researcher focused on textile sustainability, circular economy, textile biodegradation, natural dyeing, and protective textiles. I also explore machine learning for texture/defect detection and arduino-based IoT.</p>
-         <script>
-        document.querySelector('p').style.textAlign = 'justify';
-         </script>
+        <p id="bioText">Lecturer and beginner level researcher focused on textile sustainability, circular economy, textile biodegradation, natural dyeing, and protective textiles. I also explore machine learning for texture/defect detection and arduino-based IoT.</p>
       </div>
       <div class="hero-right">
         <img src="shanto2.png" alt="Saiful Islam" class="avatar">
       </div>
     </section>
 
-    <div class="content-wrapper">
-      <aside class="sidebar">
-        <ul id="sectionList">
-          <li data-section="about">About</li>
-          <li data-section="highlights">Highlights</li>
-          <li data-section="research">Research Interests</li>
-          <li data-section="methods">Methods & Tools</li>
-          <li data-section="openTo">Open To</li>
-          <li data-section="teaching">Teaching</li>
-          <li data-section="studentOpportunities">Student Opportunities</li>
-          <li data-section="projects">Projects</li>
-          <li data-section="publications">Selected Publications</li>
-          <li data-section="cv">CV</li>
-          <li data-section="contact">Contact</li>
-        </ul>
-      </aside>
+    <nav class="top-jump-bar" aria-label="Sections">
+      <ul class="top-jump-list" id="sectionList">
+        <li><a href="#about" data-section="about">About</a></li>
+        <li><a href="#highlights" data-section="highlights">Highlights</a></li>
+        <li><a href="#research" data-section="research">Research Interests</a></li>
+        <li><a href="#methods" data-section="methods">Methods &amp; Tools</a></li>
+        <li><a href="#openTo" data-section="openTo">Open To</a></li>
+        <li><a href="#teaching" data-section="teaching">Teaching</a></li>
+        <li><a href="#studentOpportunities" data-section="studentOpportunities">Student Opportunities</a></li>
+        <li><a href="#projects" data-section="projects">Projects</a></li>
+        <li><a href="#publications" data-section="publications">Selected Publications</a></li>
+        <li><a href="#cv" data-section="cv">CV</a></li>
+        <li><a href="#contact" data-section="contact">Contact</a></li>
+      </ul>
+    </nav>
 
-      <section class="section-content" id="sectionContent">
-        <h2>Welcome!</h2>
-        <p>Click any section on the left to view its content.</p>
+    <div class="vertical-stack">
+      <section id="about" class="section-content">
+        <h2>About</h2>
+        <p>I teach and supervise courses in apparel and textile engineering, and focus on sustainability and machine learning based projects. My current interests include ML-assisted inspection, nanoparticles-based multifunctional textiles, and eco-friendly dyeing.</p>
+      </section>
+
+      <section id="highlights" class="section-content">
+        <h2>Highlights</h2>
+        <ul>
+          <li>Defect detection via texture features for fabrics.</li>
+          <li>Natural dyeing with plant extracts.</li>
+          <li>Student project: Arduino-based working environment monitoring in the garments floor</li>
+          <li>Protective textile concepts &amp; finishing for performance.</li>
+          <li>Presently, I am serving as a lecturer at Atish Dipankar University of Science and Technology (Full-time). Also, I am serving as a lecturer at Bangladesh University of Textiles (Part-time)</li>
+          <li>Outside teaching, I build lightweight demos with Google Colab, MATLAB for limited local storage and easy sharing.</li>
+        </ul>
+      </section>
+
+      <section id="research" class="section-content">
+        <h2>Research Interests</h2>
+        <ul>
+          <li>Textile circularity &amp; reuse</li>
+          <li>Biodegradation of textile materials</li>
+          <li>Natural dyeing</li>
+          <li>Protective &amp; functional textiles</li>
+          <li>ML for fabric inspection</li>
+        </ul>
+      </section>
+
+      <section id="methods" class="section-content">
+        <h2>Methods &amp; Tools</h2>
+        <ul>
+          <li>UPF testing for nanoparticle-treated textiles</li>
+          <li>Arduino-based embedded system</li>
+          <li>Python, MATLAB, Colab, TensorFlow/Keras</li>
+        </ul>
+      </section>
+
+      <section id="openTo" class="section-content">
+        <h2>Open To</h2>
+        <p>Collaboration, MSc/PhD supervision discussions, and consultancy on sustainable process design and educational content.</p>
+      </section>
+
+      <section id="teaching" class="section-content">
+        <h2>Teaching</h2>
+        <ul>
+          <li>Apparel Manufacturing-I</li>
+          <li>Apparel Manufacturing-II</li>
+          <li>Pattern to Finished Garments</li>
+        </ul>
+      </section>
+
+      <section id="studentOpportunities" class="section-content">
+        <h2>Student Opportunities</h2>
+        <p>Interested in basics of Apparel Manufacturing, Natural dyeing with agricultural waste, Arduino applications, or ML for defect detection? <a href="saiful@adust.edu.bd">Get in touch</a>.</p>
+      </section>
+
+      <section id="projects" class="section-content">
+        <h2>Projects</h2>
+        <ul>
+          <li><strong>Fabric Defect Detector:</strong> Texture analysis to flag sewing and surface defects. Deployed via lightweight web app suitable for Colab + HTML. <br><em>Python • OpenCV • TensorFlow</em></li>
+          <li><strong>Natural Dyeing:</strong> Optimization of extraction and mordanting for stable shades. <br><em>DoE • UV–Vis • Fastness</em></li>
+          <li><strong>Arduino-based environment monitoring:</strong> Undergraduate research project exploring different working conditions. <br><em>Arduino • IoT</em></li>
+        </ul>
+      </section>
+
+      <section id="publications" class="section-content">
+        <h2>Selected Publications</h2>
+        <ul>
+          <li>Nothing published yet, e.g., Title — Journal, Year.</li>
+          <li>One review paper is submitted.</li>
+        </ul>
+      </section>
+
+      <section id="cv" class="section-content">
+        <h2>CV</h2>
+        <p>Download my latest CV: <a href="cv.pdf" download>cv.pdf</a>. Place your file as /cv.pdf in this repository.</p>
+      </section>
+
+      <section id="contact" class="section-content">
+        <h2>Contact</h2>
+        <p><strong>Email:</strong> <a href="mailto:saifulae20@gmail.com">saifulae20@gmail.com</a></p>
+        <p><strong>Location:</strong> Mirpur, Dhaka, Bangladesh</p>
+        <p><strong>Elsewhere:</strong> <a href="https://github.com/saifulbutex" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://scholar.google.com/citations?user=GCnMSIkAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> · <a href="https://www.linkedin.com/in/saiful20ae" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
       </section>
     </div>
   </main>
@@ -63,6 +434,64 @@
     <div>© <span id="year"></span> Saiful Islam. All rights reserved. | <a href="#" id="backToTop">Back to top ↑</a></div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    const bioEl = document.getElementById('bioText');
+    if (bioEl) {
+      bioEl.style.textAlign = 'justify';
+    }
+
+    // DARK / LIGHT THEME
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      root.setAttribute('data-theme', storedTheme);
+      themeBtn.textContent = storedTheme === 'light' ? '🌙' : '☀️';
+    }
+    themeBtn.addEventListener('click', () => {
+      const cur = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', cur);
+      localStorage.setItem('theme', cur);
+      themeBtn.textContent = cur === 'light' ? '🌙' : '☀️';
+    });
+
+    // YEAR
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // BACK TO TOP
+    document.getElementById('backToTop').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // HERO TAGS ANIMATION
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.tag').forEach((tag) => {
+        tag.classList.add('slide-in');
+      });
+    });
+
+    // HIGHLIGHT ACTIVE SECTION WHILE SCROLLING
+    const jumpLinks = Array.from(document.querySelectorAll('#sectionList a'));
+    const sectionEls = jumpLinks
+      .map((link) => document.getElementById(link.getAttribute('data-section')))
+      .filter(Boolean);
+
+    function syncActiveLink() {
+      const offset = window.scrollY + 150;
+      let activeId = sectionEls[0] ? sectionEls[0].id : '';
+      for (const sec of sectionEls) {
+        if (sec.offsetTop <= offset) {
+          activeId = sec.id;
+        }
+      }
+      jumpLinks.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('data-section') === activeId);
+      });
+    }
+
+    window.addEventListener('scroll', syncActiveLink, { passive: true });
+    syncActiveLink();
+  </script>
 </body>
 </html>
